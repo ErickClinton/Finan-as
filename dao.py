@@ -1,10 +1,10 @@
 from models import Cadastro
 
-SQL_DELETA_USUARIO = 'delete from usuario where id = %s'
-SQL_USUARIO_POR_ID = 'Select id,nome,senha from usuario where id=%s'
-SQL_ATUALIZA_USUARIO = 'UPDATE usuario SET nome=%s, senha=%s where id=%s'
-SQL_CRIA_USUARIO = 'INSERT INTO usuario(id,nome,senha) values(%s,%s,%s)'
-SQL_BUSCA_USUARIOS = 'SELECT id, nome,senha from usuario'
+SQL_DELETA_USUARIO = 'delete from login where id = %s'
+SQL_USUARIO_POR_ID = 'Select id,nome,senha from login where id=%s'
+SQL_ATUALIZA_USUARIO = 'UPDATE login SET nome=%s, senha=%s where id=%s'
+SQL_CRIA_USUARIO = 'INSERT INTO login(id,nome,senha) values(%s,%s,%s)'
+SQL_BUSCA_USUARIOS = 'SELECT id, nome,senha from login'
 class DBusuario:
     def __init__(self,db):
         self.__db=db
@@ -28,5 +28,5 @@ class DBusuario:
 
 def traduz_nome(nome):
     def cria_nome_com_tupla(tupla):
-        return Cadastro(tupla[1], tupla[2], tupla[3], id=tupla[0])
+        return Cadastro(tupla[1], tupla[2], id=tupla[0])
     return list(map(cria_nome_com_tupla, nome))

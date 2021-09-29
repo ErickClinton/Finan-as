@@ -7,7 +7,9 @@ from models import Cadastro
 
 app = Flask(__name__)
 app.secret_key='alura'
-app.config['MYSQL_HOST'] = "0.0.0.0"
+
+#conexao com o banco de dados
+app.config['MYSQL_HOST'] = "localhost"
 app.config['MYSQL_USER'] = "root"
 app.config['MYSQL_PASSWORD'] = ""
 app.config['MYSQL_DB'] = "usuario"
@@ -17,16 +19,20 @@ db = MySQL(app)
 
 usuario_dao=DBusuario(db)
 
-
+#rota principal
 @app.route('/')
 def index():
     lista = usuario_dao.listar()
-    return render_template('index.html',usuarios = lista)
+    return render_template('lista.html',titulo="usuarios",usuarios = lista)
 
+
+
+#Rota para o login
 @app.route('/login')
 def login():
     return render_template('login.html')
 
+#cadastro ainda nao funcionando
 @app.route('/signup',)
 def signup():
     nome = request.form['usuario']
@@ -36,6 +42,7 @@ def signup():
     return render_template('/signup')
 
 
+#apenas teste
 @app.route('/autenticado',methods=['POST'],)
 def autenticado():
     session['usuario_logado'] = request.form['usuario']
