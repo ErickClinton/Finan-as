@@ -46,9 +46,9 @@ for user in cursor.fetchall():
       #])
 
 cursor.execute('select * from usuario.login')
-print(' -------------  Jogos:  -------------')
-for jogo in cursor.fetchall():
-    print(jogo[1])
+print(' -------------  usuarios:  -------------')
+for usuarios in cursor.fetchall():
+    print(usuarios[1])
 
 # commitando senão nada tem efeito
 conn.commit()
