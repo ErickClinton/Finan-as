@@ -8,6 +8,8 @@ SQL_BUSCA_USUARIOS = 'SELECT id, email,senha from login'
 
 
 SQL_ADICIONA_ENTRADA='INSERT INTO ENTRADA(DINHEIRO,LOCAL,DATA,ID_LOGIN) VALUES(%s,%s,%s,%s)'
+SQL_ADICIONA_SAIDA='INSERT INTO SAIDA(DINHEIRO,LOCAL,DATA,ID_LOGIN) VALUES(%s,%s,%s,%s)'
+
 class DBusuario:
     def __init__(self,db):
         self.__db=db
@@ -47,7 +49,13 @@ class Entrada_Saida_Dinheiro():
         self.__db.connection.commit()
         return dinheiro
 
+    def criandoSaida(self,dinheiro):
+        cursor = self.__db.connection.cursor()
 
+        cursor.execute(SQL_ADICIONA_SAIDA,(dinheiro.dinheiro,dinheiro.local,dinheiro.data,dinheiro.id_login))
+        dinheiro.id=cursor.lastrowid
+        self.__db.connection.commit()
+        return dinheiro
 
 def traduz_nome(nome):
     def cria_nome_com_tupla(tupla):

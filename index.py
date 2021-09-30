@@ -3,7 +3,7 @@ from flask.helpers import url_for
 from flask.templating import render_template
 from flask_mysqldb import MySQL
 from dao import DBusuario, Entrada_Saida_Dinheiro
-from models import Cadastro, Entrada_de_Dinheiro
+from models import Cadastro, Entrada_de_Dinheiro, Saida_de_Dinheiro
 
 
 app = Flask(__name__)
@@ -81,7 +81,9 @@ def lista():
 def novoDinheiro():
     return render_template('entrada.html')
 
-
+@app.route('/saindoDinheiro')
+def saindoDinheiro():
+    return render_template('saida.html')
 
 @app.route('/entrada', methods=['POST',])
 def entradadinheiro():
@@ -92,5 +94,19 @@ def entradadinheiro():
     Dinheiro_Entrando = Entrada_de_Dinheiro(dinheiro,local,data,id_login)
     dinheiro_dao.criandoEntrada(Dinheiro_Entrando)
     return redirect(url_for('lista'))
+
+
+
+
+@app.route('/saida',methods=['POST',])
+def saidaDinheiro():
+    dinheiro = request.form['dinheiro']
+    local = request.form['local']
+    data = request.form['data']
+    id_login = request.form['id_login']
+    Dinheiro_Saindo = Saida_de_Dinheiro(dinheiro,local,data,id_login)
+    dinheiro_dao.criandoSaida(Dinheiro_Saindo)
+    return redirect(url_for('lista'))
+    
 
 app.run(debug=True)

@@ -12,3 +12,10 @@ class Entrada_de_Dinheiro:
         self.local = local
         self.data = data
         self.id_login = id_login
+
+class Saida_de_Dinheiro:
+    def __init__(self,dinheiro,local,data,id_login):
+        self.dinheiro = dinheiro
+        self.local = local
+        self.data = data
+        self.id_login = id_login
