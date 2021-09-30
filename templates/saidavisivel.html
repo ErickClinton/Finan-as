@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+{% block conteudo %}
+    <table class="table table-striped table-responsive table-bordered">
+        <thead>
+            <tr>
+
+                <button onclick="window.location.href='http://127.0.0.1:5000/novoDinheiro'">Entrada de dinheiro</button>
+                <button onclick="window.location.href='http://127.0.0.1:5000/saindoDinheiro'">Saida de dinheiro</button>
+                <th>Dinheiro</th>
+                <div>
+                    <th>data</th>
+                    <div>
+                        <th>ID_LOGIN</th>
+
+                    </div>
+                </div>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for usuario in Entrada %}
+                        <tr>
+                            <div>
+                                <td>{{ usuario.dinheiro }}</td>
+
+                            </div>
+                            <td>{{ usuario.data }}</td>
+                            <div>
+                                <p><td>{{ usuario.id_login }}</td></p>
+                            </div>
+                        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -8,6 +8,8 @@ SQL_BUSCA_USUARIOS = 'SELECT id, email,senha from login'
 
 
 SQL_ADICIONA_ENTRADA='INSERT INTO ENTRADA(DINHEIRO,LOCAL,DATA,ID_LOGIN) VALUES(%s,%s,%s,%s)'
+SQL_BUSCA_ENTRADA = 'SELECT IDENTRADA,DINHEIRO,LOCAL,DATA,ID_LOGIN FROM ENTRADA'
+
 SQL_ADICIONA_SAIDA='INSERT INTO SAIDA(DINHEIRO,LOCAL,DATA,ID_LOGIN) VALUES(%s,%s,%s,%s)'
 
 class DBusuario:
@@ -27,8 +29,8 @@ class DBusuario:
     def listar(self):
         cursor = self.__db.connection.cursor()
         cursor.execute(SQL_BUSCA_USUARIOS)
-        jogos = traduz_nome(cursor.fetchall())
-        return jogos
+        usuarios = traduz_nome(cursor.fetchall())
+        return usuarios
 
     def busca_por_id(self,email):
         cursor=self.__db.connection.cursor()
@@ -57,10 +59,21 @@ class Entrada_Saida_Dinheiro():
         self.__db.connection.commit()
         return dinheiro
 
+    def listar_Entrada(self):
+        cursor = self.__db.connection.cursor()
+        cursor.execute(SQL_BUSCA_ENTRADA)
+        usuarios = traduz_dinheiro(cursor.fetchall())
+        return usuarios
+
 def traduz_nome(nome):
     def cria_nome_com_tupla(tupla):
         return Cadastro(tupla[1], tupla[2], id=tupla[0])
     return list(map(cria_nome_com_tupla, nome))
+
+def traduz_dinheiro(dinheiro):
+    def cria_nome_com_tupla(tupla):
+        return Entrada_de_Dinheiro(tupla[1], tupla[2],tupla[3],tupla[4], id=tupla[0])
+    return list(map(cria_nome_com_tupla, dinheiro))
 
 def traduz_usuario(tupla):
     return Cadastro(tupla[0], tupla[1])

@@ -23,7 +23,7 @@ dinheiro_dao = Entrada_Saida_Dinheiro(db)
 #rota principal
 @app.route('/')
 def index():
-    return render_template("template.html")
+    return render_template("inicial.html")
 
     #'lista.html',titulo="usuarios",usuarios = lista
 
@@ -41,7 +41,7 @@ def signup():
     senha = request.form['senha']
     novo_usuario=Cadastro(nome,senha)
     usuario_dao.salvar(novo_usuario)
-    return redirect(url_for('lista'))
+    return redirect(url_for('login'))
 
 
 
@@ -67,7 +67,9 @@ def autenticado():
         return redirect(url_for('login'))
 
     flash("LOGADO")
-    return render_template('autenticado.html')
+    lista = dinheiro_dao.listar_Entrada()
+
+    return render_template('saidavisivel.html',titulo="ENTRADA",Entrada = lista)
 
 
 @app.route('/lista')
@@ -107,6 +109,11 @@ def saidaDinheiro():
     Dinheiro_Saindo = Saida_de_Dinheiro(dinheiro,local,data,id_login)
     dinheiro_dao.criandoSaida(Dinheiro_Saindo)
     return redirect(url_for('lista'))
+
+@app.route('/listaEntrada')
+def listaEntrada():
+    lista = dinheiro_dao.listar_Entrada()
+    return render_template('saidavisivel.html',titulo="ENTRADA",Entrada = lista)
     
 
 app.run(debug=True)

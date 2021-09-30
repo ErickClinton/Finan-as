@@ -7,7 +7,7 @@ class Cadastro:
         self.senha = senha
 
 class Entrada_de_Dinheiro:
-    def __init__(self,dinheiro,local,data,id_login):
+    def __init__(self,dinheiro,local,data,id_login,id=None):
         self.dinheiro = dinheiro
         self.local = local
         self.data = data
