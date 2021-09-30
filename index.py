@@ -55,16 +55,16 @@ def login():
 #apenas teste
 @app.route('/autenticado',methods=['POST'],)
 def autenticado():
-    usuario = usuario_dao.busca_por_email(request.form['email'])
+    usuario = usuario_dao.busca_por_id(request.form['email'])
     if usuario:
         if usuario.senha == request.form['senha']:
             session['usuario_logado'] = usuario.id
-            flash(usuario.nome + ' logou com sucesso!')
+            flash(' logou com sucesso!')
             proxima_pagina = request.form['proxima']
             return redirect(url_for('lista'))
     else:
         flash('Não logado, tente denovo!')
-        return redirect(url_for('lista'))
+        return redirect(url_for('login'))
 
     flash("LOGADO")
     return render_template('autenticado.html')

@@ -1,7 +1,7 @@
-from models import Cadastro
+from models import Cadastro,Entrada_de_Dinheiro
 
 SQL_DELETA_USUARIO = 'delete from login where email = %s'
-SQL_USUARIO_POR_email = 'Select id,email,senha from login where email=%s'
+SQL_USUARIO_POR_ID = 'Select email,senha from login where email=%s'
 SQL_ATUALIZA_USUARIO = 'UPDATE login SET email=%s, senha=%s where email=%s'
 SQL_CRIA_USUARIO = 'INSERT INTO login(email,senha) values(%s,%s)'
 SQL_BUSCA_USUARIOS = 'SELECT id, email,senha from login'
@@ -28,11 +28,11 @@ class DBusuario:
         jogos = traduz_nome(cursor.fetchall())
         return jogos
 
-    def busca_por_email(self,email):
+    def busca_por_id(self,email):
         cursor=self.__db.connection.cursor()
-        cursor.execute(SQL_USUARIO_POR_email,(email,))
+        cursor.execute(SQL_USUARIO_POR_ID,(email,))
         dados = cursor.fetchone()
-        usuario=traduz_nome(dados) if dados else None
+        usuario=traduz_usuario(dados) if dados else None
         return usuario
 
 class Entrada_Saida_Dinheiro():
@@ -53,3 +53,6 @@ def traduz_nome(nome):
     def cria_nome_com_tupla(tupla):
         return Cadastro(tupla[1], tupla[2], id=tupla[0])
     return list(map(cria_nome_com_tupla, nome))
+
+def traduz_usuario(tupla):
+    return Cadastro(tupla[0], tupla[1])
