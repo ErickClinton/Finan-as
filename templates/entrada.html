@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST" action="{{url_for('entradadinheiro')}}"> 
+        <p><label>Quanto de dinheiro: </label><input type="text" name = "dinheiro" required> <input></p>
+        <p><label>De onde vem:</label> <input  type="password" name="local" required></p>
+        <p><label>data: </label><input type="text" name = "data" required> <input></p>
+        <p><label>ID: </label><input type="text" name = "id_login" required> <input></p>
+
+        <p><button class="btn btn-primary" type="submit">signup</button></p>
+    </form>
+</body>
+</html>
